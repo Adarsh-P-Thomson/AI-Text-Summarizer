@@ -63,7 +63,7 @@ app.post("/api/summarize", async (req, res) => {
 });
 
 // Serve static frontend files
-app.use(express.static("/public"));
+app.use(express.static("/docs"));
 
 // Start server
 const PORT = process.env.PORT || 3000;
