@@ -36,7 +36,7 @@ function handleFileUpload(event) {
 // Fetch Summary using backend API
 async function fetchSummary(text) {
     try {
-        const response = await fetch("/api/summarize", {
+        const response = await fetch("http://localhost:3000/api/summarize", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -45,9 +45,10 @@ async function fetchSummary(text) {
         });
 
         if (response.ok) {
-            const data = await response.json();
-            outputText.value = data.summary;
+            const data = await response.json();             
+            outputText.value = data.text;
         } else {
+            console.error("Failed to generate summary. Server responded with:", response.status);
             alert("Failed to generate summary.");
         }
     } catch (error) {
@@ -55,3 +56,4 @@ async function fetchSummary(text) {
         alert("Error generating summary. Please try again.");
     }
 }
+

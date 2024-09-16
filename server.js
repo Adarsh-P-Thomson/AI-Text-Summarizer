@@ -1,42 +1,69 @@
-
+import cors from 'cors';
 import express from "express" ;
 import bodyParser from "body-parser";
 import fetch from "node-fetch";
 const app = new express();
 app.use(bodyParser.json());
 
-
+app.use(cors())
 
 // Endpoint to handle summarization request
 app.post("/api/summarize", async (req, res) => {
-    const { text } = req.body;
+  console.log("reached api launch");
+  const text = req.body.text;
+    
+    const prompt= "sumarize :"+text;
 
-    // Replace with Gemini API integration
-    try {
-        const apiResponse = await fetch("https://api.gemini.com/v1/summarize", {
-            method: "POST",
+    const generationConfig = {
+        temperature: 1,
+        topK: 64,
+        topP: 0.95,
+        maxOutputTokens: 8192,
+        responseMimeType: "text/plain"
+      };
+      
+      const API_KEY = 'AIzaSyCoMe4j5HOs0iL56VddaHfLzmsMvA6FCcY'; 
+      const aiurl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
+      
+      
+      async function generateText() {
+        try {
+          const response = await fetch(aiurl, {
+            method: 'POST',
             headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer YOUR_GEMINI_API_KEY`,
+              'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ text }),
-        });
-
-        const apiData = await apiResponse.json();
-
-        if (apiResponse.ok) {
-            res.json({ summary: apiData.summary });
-        } else {
-            res.status(500).json({ error: "Failed to generate summary" });
+            body: JSON.stringify({
+              contents: [
+                {
+                  role: "user",
+                  parts: [
+                    { text: prompt }
+                  ]
+                }
+              ],
+              generationConfig: generationConfig
+            })
+          });
+      
+          if (!response.ok) {
+            throw new Error(`Error: ${response.status} ${response.statusText}`);
+          }
+      
+          const data = await response.json();
+          const generatedText = data?.candidates?.[0]?.content || 'No content generated';
+          console.log('Generated Response:', generatedText.parts[0].text);
+          res.status(200).json({text:generatedText.parts[0].text})  // Log the generated text
+        } catch (error) {
+          console.error('Error generating text:', error);
+          res.send(error);
         }
-    } catch (error) {
-        console.error("Error in API call:", error);
-        res.status(500).json({ error: "Internal Server Error" });
-    }
+      }
+      await generateText();
 });
 
 // Serve static frontend files
-app.use("public");
+app.use(express.static("/public"));
 
 // Start server
 const PORT = process.env.PORT || 3000;
