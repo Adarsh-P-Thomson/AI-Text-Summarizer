@@ -7,17 +7,16 @@ AI-Text-Summarizer is a web-based application that allows users to paste text an
 ## Features
 * Paste text into a text input field
 * Get a summarized version of the text
+* Integrated with GEMINI Ai model 
 
 ## Getting Started
-1. Open the application in a web browser
-2. Paste text into the text input field
-3. Click the "Summarize" button to receive a summarized version of the text
+1. Open the `index.html` in a web browser
+2. initialize and start `server.js` using npm after adding the correct API Key
+3. Paste text into the text input field
+4. Click the "Summarize" button to receive a summarized version of the text
 
 ## Technical Requirements
 * Web browser (e.g. Google Chrome, Mozilla Firefox)
 * Internet connection
-
-## Future Development
-* Implement natural language processing (NLP) algorithms for text summarization
-* Add support for multiple languages
-* Integrate with other AI models for enhanced functionality
+* NodeJS
+* Gemini API Key from Google AI Studio
