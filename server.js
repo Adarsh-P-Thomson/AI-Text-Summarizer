@@ -22,7 +22,7 @@ app.post("/api/summarize", async (req, res) => {
         responseMimeType: "text/plain"
       };
       
-      const API_KEY = 'AIzaSyCoMe4j5HOs0iL56VddaHfLzmsMvA6FCcY'; 
+      const API_KEY = 'ENTER YOUR KEY HERE'; 
       const aiurl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
       
       
