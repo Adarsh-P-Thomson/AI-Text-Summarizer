@@ -57,3 +57,9 @@ async function fetchSummary(text) {
     }
 }
 
+document.getElementById('copyBtn').addEventListener('click', function() {
+    const outputText = document.getElementById('outputText');
+    outputText.select();
+    document.execCommand('copy');
+    alert('Text copied to clipboard');
+});
