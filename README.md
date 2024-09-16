@@ -20,3 +20,5 @@ AI-Text-Summarizer is a web-based application that allows users to paste text an
 * Internet connection
 * NodeJS
 * Gemini API Key from Google AI Studio
+
+[PS: Dont think of using the key in past commits. Its already deleted]
