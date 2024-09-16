@@ -11,15 +11,12 @@ AI-Text-Summarizer is a web-based application that allows users to paste text an
 
 ## Getting Started
 1. Open the `index.html` in a web browser
-2. initialize and start `server.js` using npm
+2. initialize and start `server.js` using npm after adding the correct API Key
 3. Paste text into the text input field
 4. Click the "Summarize" button to receive a summarized version of the text
 
 ## Technical Requirements
 * Web browser (e.g. Google Chrome, Mozilla Firefox)
 * Internet connection
-
-
-
-6.open the index.html in browser
-7.paste the text u want to summarize and tada it works
+* NodeJS
+* Gemini API Key from Google AI Studio
